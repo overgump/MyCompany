@@ -10,7 +10,7 @@ using MyCompany.Domain;
 namespace MyCompany.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230323044445__initial")]
+    [Migration("20230323084657__initial")]
     partial class _initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,7 +51,7 @@ namespace MyCompany.Migrations
                         new
                         {
                             Id = "681F63F0-DEA5-4CD0-A5A7-B1677D857FCE",
-                            ConcurrencyStamp = "c79ac98f-5e7e-4997-b102-be2de1a7fea6",
+                            ConcurrencyStamp = "31a21304-cda6-4da3-bbfb-187d610e61df",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         });
@@ -150,13 +150,13 @@ namespace MyCompany.Migrations
                         {
                             Id = "2C50EDF2-7A16-4020-BDE4-463B3C17B2F2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c92a5af0-34b0-4ec7-b2b2-a1320554311b",
+                            ConcurrencyStamp = "6d5b2c12-46a7-4cc0-af61-c0ba2e34ebed",
                             Email = "my@email.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "MY@EMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEF7ewQue/e9wSiDkyK4pi1dIZOrVzylAwJdCVcKMGxhYvWhQ7k/hL5iRncPDZvDAkg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENMUgmPadjw4VzQZm1VCB+F8JNWLkrjiP5BwCUU/AFKezJ96KxSxd+az7rx1N/ulAw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -228,7 +228,7 @@ namespace MyCompany.Migrations
                         new
                         {
                             UserId = "2C50EDF2-7A16-4020-BDE4-463B3C17B2F2",
-                            RoleId = "35077B67-1B44-4CC6-B8C3-5BD8A365ADAC"
+                            RoleId = "681F63F0-DEA5-4CD0-A5A7-B1677D857FCE"
                         });
                 });
 
@@ -330,7 +330,7 @@ namespace MyCompany.Migrations
                         {
                             Id = new Guid("7672ced5-1000-45de-a7fd-60521c2ab882"),
                             CodeWord = "PageIndex",
-                            DateAdded = new DateTime(2023, 3, 23, 4, 44, 45, 89, DateTimeKind.Utc).AddTicks(3497),
+                            DateAdded = new DateTime(2023, 3, 23, 8, 46, 57, 325, DateTimeKind.Utc).AddTicks(5673),
                             Text = "Содержание заполняется администратором",
                             Title = "Главная"
                         },
@@ -338,7 +338,7 @@ namespace MyCompany.Migrations
                         {
                             Id = new Guid("9c6e002a-6acf-49cf-805a-27c3cad9171f"),
                             CodeWord = "PageServices",
-                            DateAdded = new DateTime(2023, 3, 23, 4, 44, 45, 89, DateTimeKind.Utc).AddTicks(4479),
+                            DateAdded = new DateTime(2023, 3, 23, 8, 46, 57, 325, DateTimeKind.Utc).AddTicks(6704),
                             Text = "Содержание заполняется администратором",
                             Title = "Наши услуги"
                         },
@@ -346,7 +346,7 @@ namespace MyCompany.Migrations
                         {
                             Id = new Guid("771b31c9-385a-4543-80d2-37bc84b7c183"),
                             CodeWord = "PageContacts",
-                            DateAdded = new DateTime(2023, 3, 23, 4, 44, 45, 89, DateTimeKind.Utc).AddTicks(4517),
+                            DateAdded = new DateTime(2023, 3, 23, 8, 46, 57, 325, DateTimeKind.Utc).AddTicks(6741),
                             Text = "Содержание заполняется администратором",
                             Title = "Контакты"
                         });
