@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MyCompany.domain.Entities
+namespace MyCompany.Domain.Entities
 {
     public class ServiceItem: EntityBase
     {

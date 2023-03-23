@@ -1,9 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel;
-using System.Xml.Linq;
 using System;
 
-namespace MyCompany.domain.Entities
+namespace MyCompany.Domain.Entities
 {
     public abstract class EntityBase
     {
