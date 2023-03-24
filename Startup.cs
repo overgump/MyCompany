@@ -1,28 +1,27 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using MyCompany.Service;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using MyCompany.Domain;
 using MyCompany.Domain.Repositories.Abstract;
 using MyCompany.Domain.Repositories.EntityFramework;
-using MyCompany.Domain;
+using MyCompany.Service;
 
 namespace MyCompany
 {
     public class Startup
     {
         public IConfiguration Configuration { get; }
-        public Startup(IConfiguration configuration) =>Configuration= configuration;
-
+        public Startup(IConfiguration configuration) => Configuration = configuration;
 
         public void ConfigureServices(IServiceCollection services)
         {
-            // подключаем конфиг из аппсеттингс
-            Configuration.Bind("Project",new Config());
+            //подключаем конфиг из appsetting.json
+            Configuration.Bind("Project", new Config());
 
             //подключаем нужный функционал приложения в качестве сервисов
             services.AddTransient<ITextFieldsRepository, EFTextFieldsRepository>();
@@ -53,23 +52,33 @@ namespace MyCompany
                 options.SlidingExpiration = true;
             });
 
-            // добавляем поддержку контроллеров
-            services.AddControllersWithViews()
+            //настраиваем политику авторизации для Admin area
+            services.AddAuthorization(x =>
+            {
+                x.AddPolicy("AdminArea", policy => { policy.RequireRole("admin"); });
+            });
+
+            //добавляем сервисы для контроллеров и представлений (MVC)
+            services.AddControllersWithViews(x =>
+            {
+                x.Conventions.Add(new AdminAreaAuthorization("Admin", "AdminArea"));
+            })
+                //выставляем совместимость с asp.net core 3.0
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0).AddSessionStateTempDataProvider();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            // порядок регистрации middleware очень важен
+            //!!! порядок регистрации middleware очень важен
 
-            // в процессе девелопа важно знать подробно об ошибках 
-
+            //в процессе разработки нам важно видеть какие именно ошибки
             if (env.IsDevelopment())
-            {
                 app.UseDeveloperExceptionPage();
-            }
 
+            //подключаем поддержку статичных файлов в приложении (css, js и т.д.)
+            app.UseStaticFiles();
+
+            //подключаем систему маршрутизации
             app.UseRouting();
 
             //подключаем аутентификацию и авторизацию
@@ -77,16 +86,12 @@ namespace MyCompany
             app.UseAuthentication();
             app.UseAuthorization();
 
-            // включаем поддержку статитчных файлов css js and etc.
-            app.UseStaticFiles();
-
-            // Register needing routing
+            //регистриуруем нужные нам маршруты (ендпоинты)
             app.UseEndpoints(endpoints =>
             {
-               endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
-
+                endpoints.MapControllerRoute("admin", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
-            
         }
     }
 }
