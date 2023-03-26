@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace MyCompany.Migrations
 {
@@ -90,7 +91,7 @@ namespace MyCompany.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     RoleId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -111,7 +112,7 @@ namespace MyCompany.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -194,21 +195,21 @@ namespace MyCompany.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "681F63F0-DEA5-4CD0-A5A7-B1677D857FCE", "6f9b45f8-3939-404a-95db-2d6dadf01724", "admin", "ADMIN" });
+                values: new object[] { "681F63F0-DEA5-4CD0-A5A7-B1677D857FCE", "ac6dbf95-5feb-4cbb-a797-52c1fed6a68b", "admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "2C50EDF2-7A16-4020-BDE4-463B3C17B2F2", 0, "85fa2aa7-1e5a-4c80-8a7e-3304f2f1f123", "my@email.com", true, false, null, "MY@EMAIL.COM", "ADMIN", "AQAAAAEAACcQAAAAEMl56gPDxUnn1YWDMCK8nmiDdOFqwj3C8z7OHo7GlTfWJUPykaT7PwPFjRRVVfy0Bg==", null, false, "", false, "admin" });
+                values: new object[] { "2C50EDF2-7A16-4020-BDE4-463B3C17B2F2", 0, "70d73bcc-d82f-4506-8f1f-835f50fc97b1", "my@email.com", true, false, null, "MY@EMAIL.COM", "ADMIN", "AQAAAAEAACcQAAAAEJufRaWFQA+z+S53XXFG1oK3KxD1E0L4Z5Q4Gr//hW7s3unQsT8nxd08e0iaCxMi2w==", null, false, "", false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "TextFields",
                 columns: new[] { "Id", "CodeWord", "DateAdded", "MetaDescription", "MetaKeywords", "MetaTitle", "Subtitle", "Text", "Title", "TitleImagePath" },
                 values: new object[,]
                 {
-                    { new Guid("7672ced5-1000-45de-a7fd-60521c2ab882"), "PageIndex", new DateTime(2023, 3, 24, 11, 19, 11, 120, DateTimeKind.Utc).AddTicks(5049), null, null, null, null, "Содержание заполняется администратором", "Главная", null },
-                    { new Guid("9c6e002a-6acf-49cf-805a-27c3cad9171f"), "PageServices", new DateTime(2023, 3, 24, 11, 19, 11, 120, DateTimeKind.Utc).AddTicks(7500), null, null, null, null, "Содержание заполняется администратором", "Наши услуги", null },
-                    { new Guid("771b31c9-385a-4543-80d2-37bc84b7c183"), "PageContacts", new DateTime(2023, 3, 24, 11, 19, 11, 120, DateTimeKind.Utc).AddTicks(7598), null, null, null, null, "Содержание заполняется администратором", "Контакты", null }
+                    { new Guid("7672ced5-1000-45de-a7fd-60521c2ab882"), "PageIndex", new DateTime(2023, 3, 26, 9, 45, 33, 505, DateTimeKind.Utc).AddTicks(4597), null, null, null, null, "Содержание заполняется администратором", "Главная", null },
+                    { new Guid("9c6e002a-6acf-49cf-805a-27c3cad9171f"), "PageServices", new DateTime(2023, 3, 26, 9, 45, 33, 505, DateTimeKind.Utc).AddTicks(5594), null, null, null, null, "Содержание заполняется администратором", "Наши услуги", null },
+                    { new Guid("771b31c9-385a-4543-80d2-37bc84b7c183"), "PageContacts", new DateTime(2023, 3, 26, 9, 45, 33, 505, DateTimeKind.Utc).AddTicks(5632), null, null, null, null, "Содержание заполняется администратором", "Контакты", null }
                 });
 
             migrationBuilder.InsertData(
@@ -225,8 +226,7 @@ namespace MyCompany.Migrations
                 name: "RoleNameIndex",
                 table: "AspNetRoles",
                 column: "NormalizedName",
-                unique: true,
-                filter: "[NormalizedName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserClaims_UserId",
@@ -252,8 +252,7 @@ namespace MyCompany.Migrations
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
-                unique: true,
-                filter: "[NormalizedUserName] IS NOT NULL");
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

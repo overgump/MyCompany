@@ -29,7 +29,7 @@ namespace MyCompany
             services.AddTransient<DataManager>();
 
             //подключаем контекст БД
-            services.AddDbContext<AppDbContext>(x => x.UseSqlServer(Config.ConnectionString));
+            services.AddDbContext<AppDbContext>(x => x.UseNpgsql(Config.ConnectionString));
 
             //настраиваем identity систему
             services.AddIdentity<IdentityUser, IdentityRole>(opts =>
