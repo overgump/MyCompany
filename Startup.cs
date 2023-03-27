@@ -59,7 +59,7 @@ namespace MyCompany
             });
 
             //добавляем сервисы для контроллеров и представлений (MVC)
-            services.AddControllersWithViews(x =>
+            _ = services.AddControllersWithViews(x =>
             {
                 x.Conventions.Add(new AdminAreaAuthorization("Admin", "AdminArea"));
             })
